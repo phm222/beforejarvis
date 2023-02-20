@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Text-to-Speech Tool</title>
+    <script src="text-to-speech.js"></script>
+    <link rel="stylesheet" type="text/css" href="text-to-speech.css">
+  </head>
+  <body>
+    <div id="container">
+      <h1>Text-to-Speech Tool</h1>
+      <textarea id="text" rows="10" cols="50"></textarea>
+      <button id="speak">Speak</button>
+      <button id="download">Download Audio</button>
+    </div>
+  </body>
+</html>
