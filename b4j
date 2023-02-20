@@ -14,3 +14,80 @@
     </div>
   </body>
 </html>
+
+body {
+  font-family: sans-serif;
+  background-color: #f9f9f9;
+  margin: 0;
+  padding: 0;
+}
+
+#container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 50px 20px;
+}
+
+h1 {
+  margin-top: 0;
+}
+
+textarea {
+  margin-bottom: 10px;
+  font-size: 1.2em;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  font-size: 1.2em;
+  padding: 10px 20px;
+  margin-right: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#speak {
+  background-color: #8bc34a;
+  color: #fff;
+}
+
+#download {
+  background-color: #2196f3;
+  color: #fff;
+}
+
+#download:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+
+const speakButton = document.querySelector('#speak');
+const downloadButton = document.querySelector('#download');
+const textInput = document.querySelector('#text');
+const synth = window.speechSynthesis;
+
+function speakText() {
+  const utterance = new SpeechSynthesisUtterance(textInput.value);
+  synth.speak(utterance);
+}
+
+function downloadAudio() {
+  const utterance = new SpeechSynthesisUtterance(textInput.value);
+  const audioBlob = new Blob([new Uint8Array(new TextEncoder().encode(utterance.text))], { type: 'audio/wav' });
+  const audioUrl = URL.createObjectURL(audioBlob);
+  const downloadLink = document.createElement('a');
+  downloadLink.href = audioUrl;
+  downloadLink.download = 'audio.wav';
+  document.body.appendChild(downloadLink);
+  downloadLink.click();
+  document.body.removeChild(downloadLink);
+  URL.revokeObjectURL(audioUrl);
+}
+
+speakButton.addEventListener('click', speakText);
+downloadButton.addEventListener('click', downloadAudio);
+
